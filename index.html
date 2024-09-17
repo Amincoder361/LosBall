@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Lalezar', monospace;
+        }
+
+        .loading-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+            transition: opacity 1s ease; /* اضافه کردن انیمیشن فید */
+        }
+
+        .loader-text {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: gold;
+            text-align: center;
+        }
+
+        .loader {
+            width: 200px;
+            height: 20px;
+            border-radius: 15px;
+            color: gold;
+            border: 2px solid gold;
+            position: relative;
+        }
+
+        .loader::before {
+            content: "";
+            position: absolute;
+            margin: 2px;
+            inset: 0 100% 0 0;
+            border-radius: inherit;
+            background: gold;
+            animation: l6 2s infinite;
+        }
+
+        @keyframes l6 {
+            100% {inset:0;}
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease;
+            text-align: center;
+            display: none;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            display: flex;
+        }
+
+        .rectangle {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 625px;
+            height: 45px;
+            background-color: transparent;
+            border: 2px solid gold;
+            border-radius: 15px;
+            display: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .rectangle > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .rectangle img {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+        }
+
+        .rectangle span {
+            color: gold;
+        }
+
+        .task-page {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 400px;
+            background-color: black;
+            border: 2px solid gold;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .task-page h1 {
+            color: gold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .task-page hr {
+            border: none;
+            border-top: 1px solid gold;
+            margin: 10px 0;
+        }
+
+        .task-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .task-option span {
+            color: gold;
+        }
+
+        .task-option button {
+            background-color: gold;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: black;
+            font-weight: bold;
+        }
+
+        .task-option button.done {
+            background-color: green;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="loading-wrapper">
+        <div class="loader-text">Loading...</div>
+        <div class="loader"></div>
+    </div>
+
+    <div class="main-content">
+        <div class="rectangle">
+            <div data-task="tasks">
+                <img src="https://s8.uupload.ir/files/3d-render-illustration-of-project-management-task-icon-checklist-png_xg02.png" alt="Tasks">
+                <span>Tasks</span>
+            </div>
+            <div data-task="play">
+                <img src="https://s8.uupload.ir/files/4492259_dvqh.png" alt="Play">
+                <span>Play</span>
+            </div>
+            <div data-task="daily-work">
+                <img src="https://s8.uupload.ir/files/3d-rendering-calendar-icon-with-a-day-of-1-blue-and-white-color-png-1_gsg7.png" alt="Daily Work">
+                <span>Daily Work</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="task-page" id="taskPage">
+        <h1>Collect tokens by completing tasks.</h1>
+        <hr>
+        <div class="task-option">
+            <span>Join Refix Telegram Channel</span>
+            <button id="telegramButton">Start</button>
+        </div>
+        <hr>
+        <div class="task-option">
+            <span>Join Refix Youtube Channel</span>
+            <button id="youtubeButton">Start</button>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.querySelector('.loading-wrapper').style.opacity = '0';
+            setTimeout(() => {
+                document.querySelector('.loading-wrapper').style.display = 'none';
+                const mainContent = document.querySelector('.main-content');
+                const rectangle = document.querySelector('.rectangle');
+                mainContent.classList.add('visible');
+                rectangle.style.display = 'flex';
+            }, 1000); // مدت زمانی برای فید آوت
+        }, 2000);
+
+        const tasks = document.querySelectorAll('.rectangle > div');
+        let activeTask = null;
+
+        tasks.forEach(task => {
+            task.addEventListener('click', function() {
+                if (activeTask) {
+                    activeTask.classList.remove('active');
+                }
+                task.classList.add('active');
+                activeTask = task;
+
+                if (task.dataset.task === 'tasks') {
+                    document.getElementById('taskPage').style.display = 'block';
+                } else {
+                    document.getElementById('taskPage').style.display = 'none';
+                }
+            });
+        });
+
+        const telegramButton = document.getElementById('telegramButton');
+        const youtubeButton = document.getElementById('youtubeButton');
+
+        // تابع برای بررسی وضعیت ذخیره‌شده در LocalStorage
+        function checkTaskStatus() {
+            const telegramStatus = localStorage.getItem('telegramTaskDone');
+            const youtubeStatus = localStorage.getItem('youtubeTaskDone');
+
+            if (telegramStatus === 'done') {
+                telegramButton.textContent = 'Done!';
+                telegramButton.classList.add('done');
+            }
+
+            if (youtubeStatus === 'done') {
+                youtubeButton.textContent = 'Done!';
+                youtubeButton.classList.add('done');
+            }
+        }
+
+        // بعد از بارگذاری صفحه، وضعیت‌ها بررسی می‌شود
+        checkTaskStatus();
+
+        telegramButton.addEventListener('click', function() {
+            window.open('https://t.me/Refix_Coin', '_blank');
+            telegramButton.textContent = 'Done!';
+            telegramButton.classList.add('done');
+            localStorage.setItem('telegramTaskDone', 'done'); // ذخیره وضعیت در LocalStorage
+        });
+
+        youtubeButton.addEventListener('click', function() {
+            window.open('https://youtube.com/@refixcoin', '_blank');
+            youtubeButton.textContent = 'Done!';
+            youtubeButton.classList.add('done');
+            localStorage.setItem('youtubeTaskDone', 'done'); // ذخیره وضعیت در LocalStorage
+        });
+    </script>
+</body>
+</html>
