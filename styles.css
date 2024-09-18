@@ -1,0 +1,74 @@
+body {
+    font-family: 'Anton SC', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: black; /* پس‌زمینه مشکی */
+    color: white; /* رنگ متن اصلی سفید */
+    height: 100vh; /* تنظیم ارتفاع صفحه برای پوشش کل صفحه */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* مخفی کردن اسکرول */
+    -webkit-user-select: none; /* جلوگیری از انتخاب متن در مرورگرهای WebKit */
+    -moz-user-select: none; /* جلوگیری از انتخاب متن در Firefox */
+    -ms-user-select: none; /* جلوگیری از انتخاب متن در IE و Edge */
+    user-select: none; /* جلوگیری از انتخاب متن در مرورگرهای مدرن */
+}
+
+#randomId {
+    position: absolute;
+    top: 10px;
+    left: 7px; /* جابجایی 3 پیکسل به چپ */
+    padding: 5px 10px;
+    font-size: 12px; /* سایز کوچک */
+    color: white; /* رنگ سفید */
+    background-color: transparent; /* زمینه بی‌رنگ */
+    border: 1px solid black; /* حاشیه مشکی */
+    border-radius: 5px; /* حاشیه گرد */
+}
+
+#bottomRectangle {
+    background-color: #2e2e2e; /* رنگ نقره‌ای تیره */
+    border-radius: 15px; /* گوشه‌های گرد */
+    padding: 10px; /* فضای داخلی مستطیل */
+    width: 90%; /* عرض مستطیل کمتر از عرض کل صفحه */
+    max-width: 800px; /* عرض حداکثری مستطیل */
+    display: flex; /* استفاده از flexbox */
+    justify-content: space-around; /* فاصله یکنواخت بین گزینه‌ها */
+    align-items: center; /* تراز کردن عمودی گزینه‌ها */
+    text-align: center;
+    box-sizing: border-box; /* شامل کردن padding و border در محاسبه عرض */
+    position: absolute;
+    bottom: 10px; /* فاصله از پایین صفحه */
+    left: 50%; /* جابجایی مستطیل به سمت راست */
+    transform: translateX(-50%); /* جابجایی مجدد برای مرکز کردن */
+    height: 70px; /* ارتفاع جدید مستطیل */
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* تراز کردن افقی محتویات */
+    width: 11%; /* عرض هر گزینه کاهش به 11٪ */
+    max-width: 120px; /* عرض حداکثری هر گزینه */
+    transition: filter 0.5s ease; /* تنظیم افکت فید هنگام تغییر فیلتر */
+}
+
+.option img {
+    max-width: 100%; /* تنظیم عرض تصویر به عرض عنصر والد */
+    border-radius: 10px; /* گوشه‌های گرد برای تصاویر */
+}
+
+.option p {
+    margin: 2px 0 0; /* فاصله 2 پیکسل بین عکس و متن */
+    color: white; /* رنگ متن سفید */
+    font-size: 12px; /* اندازه متن کوچکتر */
+}
+
+.option.dim {
+    filter: brightness(50%); /* کاهش روشنایی به 50٪ */
+}
+
+/* جلوگیری از انتخاب متن و راست‌کلیک */
+img {
+    pointer-events: none; /* غیر فعال کردن تعاملات با تصاویر */
+}
