@@ -9,6 +9,10 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    user-select: none; /* جلوگیری از انتخاب متن */
+    -webkit-user-select: none; /* برای مرورگرهای WebKit */
+    -moz-user-select: none; /* برای مرورگرهای Mozilla */
+    -ms-user-select: none; /* برای مرورگرهای Microsoft */
 }
 
 /* استایل آیدی رندوم */
@@ -54,6 +58,8 @@ body {
 .option img {
     max-width: 100%;
     border-radius: 10px;
+    pointer-events: none; /* جلوگیری از تعامل کاربران با تصاویر */
+    -webkit-user-drag: none; /* جلوگیری از درگ تصاویر در مرورگرهای WebKit */
 }
 
 .option p {
@@ -100,9 +106,11 @@ body {
     max-width: 500px;
     border-radius: 15px;
 }
-/* تنظیم تصویر Play */ .play-content 
-     img { width: 90%; /* تنظیم عرض به 90% */
-     max-width: 500px; /* عرض حداکثری 500 پیکسل */
-     border-radius: 15px; /* گوشه‌های گرد */
-     margin-bottom: 200px;
-         }
+
+/* تنظیم تصویر Play */
+.play-content img {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    margin-bottom: 200px;
+}
