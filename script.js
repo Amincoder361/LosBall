@@ -23,22 +23,52 @@ document.getElementById("randomId").innerText = randomId;
 
 // وقتی محتوای صفحه به‌طور کامل لود شد
 document.addEventListener('DOMContentLoaded', function() {
-    // انتخاب تمام گزینه‌ها با کلاس .option
     const options = document.querySelectorAll('.option');
+    const playOption = options[2]; // گزینه "Play"
+    const tasksOption = options[0]; // گزینه "Tasks"
+    const dailyOption = options[1]; // گزینه "Daily"
+    const friendsOption = options[3]; // گزینه "Friends"
+    const walletOption = options[4]; // گزینه "Wallet"
 
-    // افزودن event listener به هر گزینه
+    const playSection = document.getElementById('playSection');
+    const tasksSection = document.getElementById('tasksSection');
+    const dailySection = document.getElementById('dailySection');
+    const friendsSection = document.getElementById('friendsSection');
+    const walletSection = document.getElementById('walletSection');
+
+    // تابع برای پنهان کردن تمام بخش‌ها
+    function hideAllSections() {
+        playSection.style.display = 'none';
+        tasksSection.style.display = 'none';
+        dailySection.style.display = 'none';
+        friendsSection.style.display = 'none';
+        walletSection.style.display = 'none';
+    }
+
     options.forEach(option => {
         option.addEventListener('click', function(event) {
-            // جلوگیری از بروز مشکلات احتمالی
             event.stopPropagation();
-            
-            // حذف کلاس dim از تمام گزینه‌ها
             options.forEach(opt => opt.classList.remove('dim'));
-            
-            // اضافه کردن کلاس dim به گزینه کلیک شده برای کاهش روشنایی
             this.classList.add('dim');
+
+            // مخفی کردن تمام بخش‌ها و نمایش بخش مربوط به گزینه انتخاب شده
+            hideAllSections();
+            if (this === playOption) {
+                playSection.style.display = 'block';
+            } else if (this === tasksOption) {
+                tasksSection.style.display = 'block';
+            } else if (this === dailyOption) {
+                dailySection.style.display = 'block';
+            } else if (this === friendsOption) {
+                friendsSection.style.display = 'block';
+            } else if (this === walletOption) {
+                walletSection.style.display = 'block';
+            }
         });
     });
+
+    // نمایش صفحه Play به‌طور پیش‌فرض و انتخاب گزینه Play
+    playOption.click();
 });
 
 // جلوگیری از راست‌کلیک
