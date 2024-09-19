@@ -1,74 +1,108 @@
+/* استایل برای بدنه */
 body {
     font-family: 'Anton SC', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: black; /* پس‌زمینه مشکی */
-    color: white; /* رنگ متن اصلی سفید */
-    height: 100vh; /* تنظیم ارتفاع صفحه برای پوشش کل صفحه */
+    background-color: black;
+    color: white;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* مخفی کردن اسکرول */
-    -webkit-user-select: none; /* جلوگیری از انتخاب متن در مرورگرهای WebKit */
-    -moz-user-select: none; /* جلوگیری از انتخاب متن در Firefox */
-    -ms-user-select: none; /* جلوگیری از انتخاب متن در IE و Edge */
-    user-select: none; /* جلوگیری از انتخاب متن در مرورگرهای مدرن */
+    overflow: hidden;
 }
 
+/* استایل آیدی رندوم */
 #randomId {
     position: absolute;
     top: 10px;
-    left: 7px; /* جابجایی 3 پیکسل به چپ */
+    left: 7px;
     padding: 5px 10px;
-    font-size: 12px; /* سایز کوچک */
-    color: white; /* رنگ سفید */
-    background-color: transparent; /* زمینه بی‌رنگ */
-    border: 1px solid black; /* حاشیه مشکی */
-    border-radius: 5px; /* حاشیه گرد */
+    font-size: 12px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
+/* استایل مستطیل نقره‌ای پایین صفحه */
 #bottomRectangle {
-    background-color: #2e2e2e; /* رنگ نقره‌ای تیره */
-    border-radius: 15px; /* گوشه‌های گرد */
-    padding: 10px; /* فضای داخلی مستطیل */
-    width: 90%; /* عرض مستطیل کمتر از عرض کل صفحه */
-    max-width: 800px; /* عرض حداکثری مستطیل */
-    display: flex; /* استفاده از flexbox */
-    justify-content: space-around; /* فاصله یکنواخت بین گزینه‌ها */
-    align-items: center; /* تراز کردن عمودی گزینه‌ها */
+    background-color: #2e2e2e;
+    border-radius: 15px;
+    padding: 10px;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     text-align: center;
-    box-sizing: border-box; /* شامل کردن padding و border در محاسبه عرض */
     position: absolute;
-    bottom: 10px; /* فاصله از پایین صفحه */
-    left: 50%; /* جابجایی مستطیل به سمت راست */
-    transform: translateX(-50%); /* جابجایی مجدد برای مرکز کردن */
-    height: 70px; /* ارتفاع جدید مستطیل */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 70px;
 }
 
 .option {
     display: flex;
     flex-direction: column;
-    align-items: center; /* تراز کردن افقی محتویات */
-    width: 11%; /* عرض هر گزینه کاهش به 11٪ */
-    max-width: 120px; /* عرض حداکثری هر گزینه */
-    transition: filter 0.5s ease; /* تنظیم افکت فید هنگام تغییر فیلتر */
+    align-items: center;
+    width: 11%;
+    max-width: 120px;
+    transition: filter 0.5s ease;
 }
 
 .option img {
-    max-width: 100%; /* تنظیم عرض تصویر به عرض عنصر والد */
-    border-radius: 10px; /* گوشه‌های گرد برای تصاویر */
+    max-width: 100%;
+    border-radius: 10px;
 }
 
 .option p {
-    margin: 2px 0 0; /* فاصله 2 پیکسل بین عکس و متن */
-    color: white; /* رنگ متن سفید */
-    font-size: 12px; /* اندازه متن کوچکتر */
+    margin: 2px 0 0;
+    color: white;
+    font-size: 12px;
 }
 
 .option.dim {
-    filter: brightness(50%); /* کاهش روشنایی به 50٪ */
+    filter: brightness(50%);
 }
 
-/* جلوگیری از انتخاب متن و راست‌کلیک */
-img {
-    pointer-events: none; /* غیر فعال کردن تعاملات با تصاویر */
+/* استایل بخش‌های مختلف */
+#playSection, #tasksSection, #dailySection, #friendsSection, #walletSection {
+    display: none; /* پیش‌فرض مخفی */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 1000;
 }
+
+.play-content, .tasks-content, .daily-content, .friends-content, .wallet-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.play-content h1, .tasks-content h1, .daily-content h1, .friends-content h1, .wallet-content h1 {
+    margin: 0 0 20px;
+    font-size: 2em;
+}
+
+/* استایل اضافی برای تصویر Wallet */
+.wallet-content img {
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+}
+/* تنظیم تصویر Play */ .play-content 
+     img { width: 90%; /* تنظیم عرض به 90% */
+     max-width: 500px; /* عرض حداکثری 500 پیکسل */
+     border-radius: 15px; /* گوشه‌های گرد */
+     margin-bottom: 200px;
+         }
