@@ -1,41 +1,4 @@
-// جلوگیری از راست‌کلیک روی کل صفحه
-document.addEventListener('contextmenu', function(event) {
-    event.preventDefault();
-});
-
-// توابع برای نمایش و پنهان کردن بخش‌ها
-function showSection(sectionId) {
-    // پنهان کردن همه بخش‌ها
-    document.getElementById('playSection').style.display = 'none';
-    document.getElementById('tasksSection').style.display = 'none';
-    document.getElementById('dailySection').style.display = 'none';
-    document.getElementById('friendsSection').style.display = 'none';
-    document.getElementById('walletSection').style.display = 'none';
-
-    // نمایش بخش انتخاب‌شده
-    document.getElementById(sectionId).style.display = 'flex';
-
-    // تغییر استایل گزینه‌ها
-    document.querySelectorAll('.option').forEach(function(option) {
-        option.classList.add('dim');
-    });
-    document.querySelector(`.option img[alt="${sectionId.replace('Section', '')}"]`).parentElement.classList.remove('dim');
-}
-
-// نمایش دیفالت بخش Play
-document.addEventListener('DOMContentLoaded', function() {
-    showSection('playSection'); // بخش Play به صورت دیفالت نمایش داده می‌شود
-});
-
-// افزودن کلیک به گزینه‌های پایین صفحه
-document.querySelectorAll('.option').forEach(function(option) {
-    option.addEventListener('click', function() {
-        const sectionId = option.querySelector('img').alt + 'Section'; // استخراج ID بخش
-        showSection(sectionId); // نمایش بخش انتخاب‌شده
-    });
-});
-
-// تولید آیدی رندوم
+// تابع برای تولید آیدی رندوم
 function generateRandomId() {
     const prefix = "MrFooty_";
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -57,3 +20,58 @@ if (!randomId) {
 
 // نمایش آیدی در بالای سمت چپ
 document.getElementById("randomId").innerText = randomId;
+
+// وقتی محتوای صفحه به‌طور کامل لود شد
+document.addEventListener('DOMContentLoaded', function() {
+    const options = document.querySelectorAll('.option');
+    const playOption = options[2]; // گزینه "Play"
+    const tasksOption = options[0]; // گزینه "Tasks"
+    const dailyOption = options[1]; // گزینه "Daily"
+    const friendsOption = options[3]; // گزینه "Friends"
+    const walletOption = options[4]; // گزینه "Wallet"
+
+    const playSection = document.getElementById('playSection');
+    const tasksSection = document.getElementById('tasksSection');
+    const dailySection = document.getElementById('dailySection');
+    const friendsSection = document.getElementById('friendsSection');
+    const walletSection = document.getElementById('walletSection');
+
+    // تابع برای پنهان کردن تمام بخش‌ها
+    function hideAllSections() {
+        playSection.style.display = 'none';
+        tasksSection.style.display = 'none';
+        dailySection.style.display = 'none';
+        friendsSection.style.display = 'none';
+        walletSection.style.display = 'none';
+    }
+
+    options.forEach(option => {
+        option.addEventListener('click', function(event) {
+            event.stopPropagation();
+            options.forEach(opt => opt.classList.remove('dim'));
+            this.classList.add('dim');
+
+            // مخفی کردن تمام بخش‌ها و نمایش بخش مربوط به گزینه انتخاب شده
+            hideAllSections();
+            if (this === playOption) {
+                playSection.style.display = 'block';
+            } else if (this === tasksOption) {
+                tasksSection.style.display = 'block';
+            } else if (this === dailyOption) {
+                dailySection.style.display = 'block';
+            } else if (this === friendsOption) {
+                friendsSection.style.display = 'block';
+            } else if (this === walletOption) {
+                walletSection.style.display = 'block';
+            }
+        });
+    });
+
+    // نمایش صفحه Play به‌طور پیش‌فرض و انتخاب گزینه Play
+    playOption.click();
+});
+
+// جلوگیری از راست‌کلیک
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});
