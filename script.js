@@ -24,22 +24,36 @@ function showSection(sectionId) {
 
 // نمایش دیفالت بخش Play
 document.addEventListener('DOMContentLoaded', function() {
-    showSection('playSection');
+    showSection('playSection'); // بخش Play به صورت دیفالت نمایش داده می‌شود
 });
 
 // افزودن کلیک به گزینه‌های پایین صفحه
 document.querySelectorAll('.option').forEach(function(option) {
     option.addEventListener('click', function() {
-        const sectionId = option.querySelector('img').alt + 'Section';
-        showSection(sectionId);
+        const sectionId = option.querySelector('img').alt + 'Section'; // استخراج ID بخش
+        showSection(sectionId); // نمایش بخش انتخاب‌شده
     });
 });
 
 // تولید آیدی رندوم
 function generateRandomId() {
-    const randomId = 'ID-' + Math.floor(Math.random() * 10000);
-    document.getElementById('randomId').textContent = randomId;
+    const prefix = "MrFooty_";
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomString = '';
+    for (let i = 0; i < 5; i++) {
+        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return prefix + randomString;
 }
 
-// فراخوانی تابع تولید آیدی رندوم
-generateRandomId();
+// بررسی اینکه آیا آیدی قبلاً در localStorage ذخیره شده است یا نه
+let randomId = localStorage.getItem('userId');
+
+if (!randomId) {
+    // اگر آیدی وجود ندارد، یک آیدی جدید تولید کرده و ذخیره می‌کند
+    randomId = generateRandomId();
+    localStorage.setItem('userId', randomId);
+}
+
+// نمایش آیدی در بالای سمت چپ
+document.getElementById("randomId").innerText = randomId;
