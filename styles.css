@@ -16,7 +16,7 @@ body {
 }
 
 /* استایل آیدی تلگرام */
-#telegramId {
+#randomId {
     position: absolute;
     top: 10px;
     left: 7px;
@@ -56,11 +56,6 @@ body {
     transition: filter 0.5s ease;
 }
 
-.option img {
-    max-width: 100%;
-    border-radius: 10px;
-}
-
 .option p {
     margin: 2px 0 0;
     color: white;
@@ -72,7 +67,7 @@ body {
 }
 
 /* استایل بخش‌های مختلف */
-#playSection, #tasksSection, #dailySection, #friendsSection, #walletSection {
+#playSection, #tasksSection {
     display: none;
     position: fixed;
     top: 50%;
@@ -133,9 +128,10 @@ body {
     margin-bottom: 200px;
 }
 
-/* استایل اضافی برای تصویر Wallet */
-.wallet-content img {
-    width: 90%;
-    max-width: 500px;
-    border-radius: 15px;
+/* جلوگیری از انتخاب متن در صفحه */
+* {
+    -webkit-user-select: none; /* برای مرورگرهای WebKit */
+    -moz-user-select: none;    /* برای مرورگرهای Firefox */
+    -ms-user-select: none;     /* برای مرورگرهای Internet Explorer/Edge */
+    user-select: none;         /* جلوگیری از انتخاب متن */
 }
