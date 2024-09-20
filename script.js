@@ -1,14 +1,27 @@
+// توکن ربات تلگرام
+const token = "7424010979:AAGlORc0sDcT8irk4eQHfftQvaoD5CcgwR0";
+
+// تابع برای دریافت اطلاعات کاربر
+async function getUserIdFromTelegram() {
+    const url = `https://api.telegram.org/bot${token}/getUpdates`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.ok) {
+        const updates = data.result;
+        if (updates.length > 0) {
+            const userId = updates[updates.length - 1].message.from.id;
+            document.getElementById("telegramId").innerText = `Telegram ID: ${userId}`;
+        }
+    } else {
+        console.error("Error fetching user ID:", data.description);
+    }
+}
+
 // وقتی محتوای صفحه به‌طور کامل لود شد
 document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const telegramId = urlParams.get('userId');
-
-    // نمایش آیدی تلگرام کاربر
-    if (telegramId) {
-        document.getElementById("telegramId").innerText = `Telegram ID: ${telegramId}`;
-    } else {
-        document.getElementById("telegramId").innerText = "Telegram ID not found.";
-    }
+    getUserIdFromTelegram();
 
     const options = document.querySelectorAll('.option');
     const playOption = options[2]; // گزینه "Play"
@@ -56,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // نمایش صفحه Play به‌طور پیش‌فرض و انتخاب گزینه Play
     playOption.click();
+});
 
-    // جلوگیری از راست‌کلیک
-    document.addEventListener('contextmenu', function(event) {
-        event.preventDefault();
-    });
+// جلوگیری از راست‌کلیک
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
 });
