@@ -1,19 +1,14 @@
-/* جلوگیری از اسکرول در گوشی‌ها */
-@media (max-width: 767px) {
-  body {
-    overflow: hidden; /* جلوگیری از اسکرول */
-  }
-}
-
-/* استایل برای صفحه‌های بزرگتر */
+/* جلوگیری از اسکرول و زوم */
 body {
   margin: 0;
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 1fr auto; /* بالا، وسط، پایین */
+  grid-template-rows: auto 1fr auto;
   grid-template-columns: 1fr;
   background-color: #151515;
   font-family: 'Anton', sans-serif;
+  overflow: hidden; /* جلوگیری از اسکرول */
+  touch-action: none; /* جلوگیری از زوم با لمس صفحه */
 }
 
 /* استایل برای بخش‌های مختلف */
@@ -91,16 +86,17 @@ a:hover::after {
   clip-path: polygon(40% 10%, 60% 10%, 60% 35%, 40% 35%, 40% 90%, 60% 90%, 60% 65%, 40% 65%);
 }
 
-/* استایل‌های موبایل */
+/* غیرفعال کردن حالت مخصوص موبایل */
 @media (max-width: 767px) {
+  /* حالت مخصوص گوشی حذف شد */
   body {
-    overflow: hidden;
-    font-size: 1.2em;
+    font-size: 1em; /* اندازه فونت معمولی */
+    overflow: hidden; /* جلوگیری از اسکرول */
+    touch-action: none; /* جلوگیری از زوم */
   }
 
-  /* برای موبایل، لینک‌ها و بخش‌ها به صورت عمودی قرار می‌گیرند */
   .rules, .start, .links {
-    font-size: 1.5em; /* تغییر اندازه فونت برای موبایل */
+    font-size: 2em; /* اندازه فونت ثابت */
     text-align: center;
   }
 
